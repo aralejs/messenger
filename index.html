@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>Messenger</title><link rel="stylesheet" href="http://alipay.github.com/liquidluck-theme-arale/assets/app.min.css">
+    <link rel="shortcut icon" href="http://alipay.github.com/liquidluck-theme-arale/assets/favicon.ico" type="image/x-icon" />
+    <script src="http://seajs.org/dist/sea.js"></script>
+    <script src="http://alipay.github.com/liquidluck-theme-arale/tools/arale-helper.js"></script>
+    <!--[if lt IE 9]>
+      <script src="http://alipay.github.com/liquidluck-theme-arale/assets/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header id="header">
+      <div class="container">
+        <a title="Home" class="icon-home" href="/" id="logo">Arale</a>
+        <div class="wrapper fn-clear">
+          
+          <nav class="global-nav" role="navigation">
+            <ul class="fn-clear">
+              <li class="developer-guides"><a href="/developer-guides/">开发指南</a></li>
+              <li class="user-guides"><a href="/components/">组件文档</a> • <a style="padding-left:0;" href="/mapping.html">Map</a></li>
+            </ul>
+          </nav>
+          <nav class="top-nav" role="navigation">
+            <ul class="fn-clear">
+              <li class="first"><a target="_blank" href="http://seajs.org">SeaJS</a></li>
+              <li class="last"><a target="_blank" href="https://github.com/seajs/spm/wiki">SPM</a></li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </header>
+
+    <div id="main">
+      <div class="container fn-clear">
+<div class="markdown-body">
+  <h1 class="entry-title">Messenger</h1>
+  <div class="other-info">
+    <a href="history.html">历史</a>
+    <a target="_blank" href="https://github.com/aralejs/messenger/">源码</a>
+  </div>
+  <p class="entry-description">跨域 Iframe 通信解决方案，兼容 IE 系列浏览器。</p>
+  <p class="entry-cdn" data-name="messenger"></p>
+  
+  <hr />
+
+  
+<h2>演示</h2>
+<ul>
+  <li><a href="./examples/">跨域 Iframe 通信演示</a></li>
+</ul><h2 id="toc_0">使用说明</h2>
+
+<h3 id="toc_1">API</h3>
+
+<h4 id="toc_2">target <em>selector</em></h4>
+<p>收发信息的目标页面。</p>
+
+<h4 id="toc_3">onmessage <em>function</em></h4>
+<p>接受消息的处理函数，第一个参数为收到的信息。</p>
+
+<h3 id="toc_4">方法</h3>
+
+<h4 id="toc_5">send <em>function</em></h4>
+<p>使用 send 方法来给目标页面发送信息，接受一个 string 参数。</p>
+<div class="highlight"><pre><span class="nx">messenger</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;The Message.&#39;</span><span class="p">);</span>
+</pre></div>
+
+<h2 id="toc_6">最佳实践</h2>
+
+<h3 id="toc_7">父页面</h3>
+<div class="highlight"><pre><span class="c1">// target 参数为 iframe</span>
+<span class="kd">var</span> <span class="nx">messenger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Messenger</span><span class="p">({</span>
+    <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#iframe&#39;</span><span class="p">,</span>
+    <span class="nx">onmessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// 给子页面发消息</span>
+<span class="nx">messenger</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;发给子页面的消息&#39;</span><span class="p">);</span>
+</pre></div>
+
+<h3 id="toc_8">子页面</h3>
+<div class="highlight"><pre><span class="c1">// target 参数为 parent</span>
+<span class="kd">var</span> <span class="nx">messenger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Messenger</span><span class="p">({</span>
+    <span class="nx">target</span><span class="o">:</span> <span class="nx">parent</span><span class="p">,</span>
+    <span class="nx">onmessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// 给父页面发消息</span>
+<span class="nx">messenger</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;发给父页面的消息&#39;</span><span class="p">);</span>
+</pre></div>
+
+<h2 id="toc_9">感谢</h2>
+<p>本组件源码来自 <a href="https://github.com/biqing/MessengerJS">https://github.com/biqing/MessengerJS</a> 。</p>
+
+
+  <h2>用例</h2>
+  <p><a href="./tests/runner.html">测试用例</a></p>
+
+  <h2>讨论</h2>
+  <p>有任何疑问，欢迎发送邮件到 <a href="https://groups.google.com/forum/?fromgroups#!forum/aralejs">aralejs@googlegroups.com</a></p>
+  <p>发现 bug？请提交 <a href="https://github.com/aralejs/messenger/issues/new">Issue</a></p>
+</div>
+<div class="sidebar sidebar-components"></div>
+      </div>
+    </div>
+
+    <footer id="footer">
+      <div class="container">
+        <div class="copyright">
+          <p>&copy; 2012 aralejs.org</p>
+          <p>除非另有声明，本站所有代码遵循 MIT 协议</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

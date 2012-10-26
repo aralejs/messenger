@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>Messenger - 跨域 Iframe 通信演示</title><link rel="stylesheet" href="http://alipay.github.com/liquidluck-theme-arale/assets/app.min.css">
+    <link rel="shortcut icon" href="http://alipay.github.com/liquidluck-theme-arale/assets/favicon.ico" type="image/x-icon" />
+    <script src="http://seajs.org/dist/sea.js"></script>
+    <script src="http://alipay.github.com/liquidluck-theme-arale/tools/arale-helper.js"></script>
+    <!--[if lt IE 9]>
+      <script src="http://alipay.github.com/liquidluck-theme-arale/assets/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header id="header">
+      <div class="container">
+        <a title="Home" class="icon-home" href="/" id="logo">Arale</a>
+        <div class="wrapper fn-clear">
+          
+          <nav class="global-nav" role="navigation">
+            <ul class="fn-clear">
+              <li class="developer-guides"><a href="/developer-guides/">开发指南</a></li>
+              <li class="user-guides"><a href="/components/">组件文档</a> • <a style="padding-left:0;" href="/mapping.html">Map</a></li>
+            </ul>
+          </nav>
+          <nav class="top-nav" role="navigation">
+            <ul class="fn-clear">
+              <li class="first"><a target="_blank" href="http://seajs.org">SeaJS</a></li>
+              <li class="last"><a target="_blank" href="https://github.com/seajs/spm/wiki">SPM</a></li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </header>
+
+    <div id="main">
+      <div class="container fn-clear">
+<div class="markdown-body">
+  <h1 class="entry-title"><a id="back-to-module" href="../">Messenger</a> - 跨域 Iframe 通信演示</h1>
+  <h2 id="toc_0">演示</h2>
+
+<p>
+    我是父页面
+    <script>document.write('(' + location.protocol + '//' + location.host + ')');</script>
+</p>
+
+<p>
+    <input id="message">
+    <input type="button" value="发送给子页面" id="send">
+</p>
+
+<pre id="output">来自子页面的消息:</pre>
+
+<iframe id="iframe" src="iframe.html" width="500px"></iframe>
+
+<h2 id="toc_1">父页面这么写</h2>
+
+<script>
+seajs.use(['messenger', '$'], function(Messenger, $) {
+    var messenger = new Messenger({
+        target: '#iframe',
+        onmessage: function(data) {
+            output.html(output.html() + ' ' + data);
+        }
+    });
+
+    // 通过点击按钮发送消息
+    var send = $('#send');
+    var message = $('#message');
+    var output = $('#output');
+    send.click(function() {
+        messenger.send(message[0].value);
+        message[0].value = '';
+    });
+});
+</script>
+<div class="highlight"><pre><span class="nx">seajs</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span><span class="s1">&#39;messenger&#39;</span><span class="p">,</span> <span class="s1">&#39;$&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Messenger</span><span class="p">,</span> <span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">messenger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Messenger</span><span class="p">({</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#iframe&#39;</span><span class="p">,</span>
+        <span class="nx">onmessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">output</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nx">html</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 通过点击按钮发送消息</span>
+    <span class="kd">var</span> <span class="nx">send</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#send&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#message&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#output&#39;</span><span class="p">);</span>
+    <span class="nx">send</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">messenger</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">value</span><span class="p">);</span>
+        <span class="nx">message</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2 id="toc_2">子页面这么写</h2>
+<div class="highlight"><pre><span class="nx">seajs</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span><span class="s1">&#39;messenger&#39;</span><span class="p">,</span> <span class="s1">&#39;$&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Messenger</span><span class="p">,</span> <span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">messenger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Messenger</span><span class="p">({</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="nx">parent</span><span class="p">,</span>
+        <span class="nx">onmessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">output</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nx">html</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 通过点击按钮发送消息</span>
+    <span class="kd">var</span> <span class="nx">send</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#send&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#message&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#output&#39;</span><span class="p">);</span>
+    <span class="nx">send</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">messenger</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">value</span><span class="p">);</span>
+        <span class="nx">message</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+</div>
+<div class="sidebar sidebar-components"></div>
+      </div>
+    </div>
+
+    <footer id="footer">
+      <div class="container">
+        <div class="copyright">
+          <p>&copy; 2012 aralejs.org</p>
+          <p>除非另有声明，本站所有代码遵循 MIT 协议</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
