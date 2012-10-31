@@ -11,7 +11,7 @@ define(function(require, exports, module) {
                 if (win && win.tagName === 'IFRAME') {
                     win = win.contentWindow;
                 }
-        	}
+            }
         } catch(e){ }
 
         // save the pointer to the window which is interacting with        
