@@ -7,9 +7,9 @@ define(function(require, exports, module) {
         
         if( typeof win == 'string' ){
             win = $(win).get(0);
-    	if (win && win.tagName === 'IFRAME') {
-            win = win.contentWindow;
-    	}
+            if (win && win.tagName === 'IFRAME') {
+                win = win.contentWindow;
+            }
         }
 
         // save the pointer to the window which is interacting with        
