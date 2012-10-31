@@ -5,12 +5,14 @@ define(function(require, exports, module) {
     function Messenger(config) {
         var win = config.target || parent;
         
-        if( typeof win == 'string' ){
-            win = $(win).get(0);
-            if (win && win.tagName === 'IFRAME') {
-                win = win.contentWindow;
-            }
-        }
+        try{
+            if( !$.isWindow(win) ){
+                win = $(win).get(0);
+                if (win && win.tagName === 'IFRAME') {
+                    win = win.contentWindow;
+                }
+        	}
+        } catch(e){ }
 
         // save the pointer to the window which is interacting with        
         this.win = win;
