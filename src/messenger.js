@@ -6,13 +6,13 @@ define(function(require, exports, module) {
         var win = config.target || parent;
         
         try{
-            if( !$.isWindow(win) ){
+            if (!$.isWindow(win)) {
                 win = $(win).get(0);
                 if (win && win.tagName === 'IFRAME') {
                     win = win.contentWindow;
                 }
             }
-        } catch(e){ }
+        } catch(e) { }
 
         // save the pointer to the window which is interacting with        
         this.win = win;
