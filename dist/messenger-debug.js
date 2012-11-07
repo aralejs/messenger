@@ -1,4 +1,4 @@
-define("#messenger/1.0.0/messenger-debug", ["$-debug"], function(require, exports, module) {
+define("arale/messenger/1.0.0/messenger-debug", ["$-debug"], function(require, exports, module) {
 
     var $ = require('$-debug');
 
