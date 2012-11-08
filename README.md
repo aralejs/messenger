@@ -8,18 +8,18 @@
 
 ## API
 
-### target *selector*
+### target `selector`
 
 收发信息的目标页面。
 
 
-### onmessage *function*
+### onmessage `function`
 
 接受消息的处理函数，第一个参数为收到的信息。
 
 ## 方法
 
-### send *function*
+### send `function`
 
 使用 send 方法来给目标页面发送信息，接受一个 string 参数。
 
