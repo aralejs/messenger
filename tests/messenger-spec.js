@@ -22,7 +22,6 @@ define(function(require) {
                     target: '#iframe',
                     onmessage: function(data) {
                         message = data;
-                        console.log(message);
                     }
                 });
             });
@@ -36,7 +35,6 @@ define(function(require) {
         test(' 子页面传给父页面', function() {
 
             waitsFor(function() {
-                console.log(flag);
                 return flag;
             }, "iframe应该已经载入成功了", 5000);
 
@@ -62,6 +60,21 @@ define(function(require) {
             });
 
         });
+
+        test('传递object对象', function() {
+
+            waitsFor(function() {
+                // 父页面给子页面发消息
+                messenger.send({test: 'test-text'});
+                return flag;
+            }, "iframe应该已经载入成功了", 5000);
+
+            runs(function() {
+                expect(window.parentMessage.test).toBe('test-text');
+            });
+
+        });
+
     });
 
 });
