@@ -22,6 +22,7 @@ define(function(require) {
                     target: '#iframe',
                     onmessage: function(data) {
                         message = data;
+                        console.log(message);
                     }
                 });
             });
@@ -35,11 +36,14 @@ define(function(require) {
         test(' 子页面传给父页面', function() {
 
             waitsFor(function() {
+                console.log(flag);
                 return flag;
             }, "iframe应该已经载入成功了", 5000);
 
             runs(function() {
-                expect(message).toBe('from iframe.');
+                setTimeout(function() {
+                    expect(message).toBe('from iframe.');
+                }, 0);
             });
 
         });

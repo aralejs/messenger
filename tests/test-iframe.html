@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>test</title>
-    <script src="http://seajs.org/dist/sea.js"></script>
-    <script src="http://alipay.github.com/liquidluck-theme-arale/tools/arale-helper.js"></script>
+    <script src="https://a.alipayobjects.com/static/arale/seajs/1.2.1/sea.js"></script>
+    <script src="/static/js/arale-helper.js"></script>
   </head>
   <body>
 
     <script>
-    seajs.use(['messenger', '$'], function(Messenger, $) {
+    seajs.use(['../src/messenger', '$'], function(Messenger, $) {
         var messenger = new Messenger({
             target: parent,
             onmessage: function(data) {
