@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>iframe communication (iframe page)</title>
-     <script src="http://seajs.org/dist/sea.js"></script>
-    <script src="http://alipay.github.com/liquidluck-theme-arale/tools/arale-helper.js"></script>
+    <script src="https://a.alipayobjects.com/static/arale/seajs/1.2.1/sea.js"></script>
+    <script src="http://aralejs.org/messenger/static/js/arale-helper.js"></script>
     <style>
       pre { background-color: #ccc; color: #000; padding: 0.5em; }
     </style>
@@ -23,23 +23,23 @@
     <pre id="output">来自父页面的消息:</pre>
 
     <script>
-seajs.use(['messenger', '$'], function(Messenger, $) {
-    var messenger = new Messenger({
-        target: parent,
-        onmessage: function(data) {
-            output.html(output.html() + ' ' + data);
-        }
+    seajs.use(['../src/messenger', '$'], function(Messenger, $) {
+        var messenger = new Messenger({
+            target: parent,
+            onmessage: function(data) {
+                output.html(output.html() + ' ' + data);
+            }
+        });
+        
+        // 通过点击按钮发送消息
+        var send = $('#send');
+        var message = $('#message');
+        var output = $('#output');
+        send.click(function() {
+            messenger.send(message[0].value);
+            message[0].value = '';
+        });
     });
-    
-    // 通过点击按钮发送消息
-    var send = $('#send');
-    var message = $('#message');
-    var output = $('#output');
-    send.click(function() {
-        messenger.send(message[0].value);
-        message[0].value = '';
-    });
-});
     </script>
 
   </body>
