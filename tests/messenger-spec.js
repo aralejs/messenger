@@ -4,26 +4,17 @@ define(function(require) {
         $ = require('$'),
         messenger,
         message,
-        node,
-        flag;
+        node;
 
     describe('Messenger', function() {
 
-        beforeEach(function() {
-            runs(function() {
-                flag = false;
-                var node = $('<iframe id="iframe" src="test-iframe.html">');
-                node.on('load', function() {
-                    flag = true;
-                });
-                node.appendTo(document.body);
 
-                messenger = new Messenger({
-                    target: '#iframe',
-                    onmessage: function(data) {
-                        message = data;
-                    }
-                });
+        beforeEach(function() {
+            messenger = new Messenger({
+                target: '#iframe',
+                onmessage: function(data) {
+                    message = data;
+                }
             });
         });
 
@@ -32,50 +23,35 @@ define(function(require) {
             node && node.remove();
         });
 
-        test(' 子页面传给父页面', function() {
-
-            waitsFor(function() {
-                return flag;
-            }, "iframe应该已经载入成功了", 5000);
-
-            runs(function() {
-                setTimeout(function() {
-                    expect(message).toBe('from iframe.');
-                }, 0);
+        it(' 子页面传给父页面', function() {
+            createIframe(function() {
+                expect(message).toBe('from iframe.');
             });
-
         });
 
-        test(' 父页面传给子页面', function() {
-
-            waitsFor(function() {
-                // 父页面给子页面发消息
+        it(' 父页面传给子页面', function() {
+            createIframe(function() {
                 messenger.send('from parent.');
-
-                return flag;
-            }, "iframe应该已经载入成功了", 5000);
-
-            runs(function() {
                 expect(window.parentMessage).toBe('from parent.');
             });
-
         });
 
-        test('传递object对象', function() {
-
-            waitsFor(function() {
-                // 父页面给子页面发消息
+        it('传递object对象', function() {
+            createIframe(function() {
                 messenger.send({test: 'test-text'});
-                return flag;
-            }, "iframe应该已经载入成功了", 5000);
-
-            runs(function() {
                 expect(window.parentMessage.test).toBe('test-text');
             });
-
         });
 
     });
+
+    function createIframe(callback) {
+        node = $('<iframe id="iframe" src="test-iframe.html">');
+        node.on('load', function() {
+            callback();
+        });
+        node.appendTo(document.body);
+    }
 
 });
 
