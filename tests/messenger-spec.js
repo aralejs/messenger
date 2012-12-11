@@ -8,6 +8,7 @@ define(function(require) {
         node;
 
     mocha.globals('iframe');
+    mocha.suite.timeout(5000);
 
     describe('Messenger', function() {
 
