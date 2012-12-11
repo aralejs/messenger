@@ -4,8 +4,10 @@ define(function(require) {
         $ = require('$'),
         messenger,
         message,
-        delay = 80,
+        delay = 60,
         node;
+
+    mocha.globals('iframe');
 
     describe('Messenger', function() {
 
@@ -40,8 +42,13 @@ define(function(require) {
         it('传递object对象', function(done) {
             createIframe(function() {
                 messenger.send({test: 'test-text'});
-                setTimeout(function() {                
-                    expect(seajs.parentMessage.test).to.be('test-text');
+                setTimeout(function() {
+                    if ($.browser.msie && $.browser.version >= 8) {
+                        // ie 8/9 only support string message
+                        expect(seajs.parentMessage).to.be('[object Object]');                    
+                    } else {
+                        expect(seajs.parentMessage.test).to.be('test-text');
+                    }
                     done();
                 }, delay);
             });
@@ -51,10 +58,8 @@ define(function(require) {
 
     function createIframe(callback) {
         node = $('<iframe id="iframe" src="test-iframe.html"></iframe>');
-        node.on('load', function() {
-            callback();
-        });
         node.appendTo(document.body);
+        node[0].contentWindow.loadMessenger = callback;
         messenger = new Messenger({
             target: '#iframe',
             onmessage: function(data) {

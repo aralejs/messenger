@@ -9,7 +9,7 @@
   <body>
 
     <script>
-    seajs.use(['../src/messenger', '$'], function(Messenger, $) {
+    seajs.use(['../src/messenger'], function(Messenger) {
         var messenger = new Messenger({
             target: parent,
             onmessage: function(data) {
@@ -17,6 +17,7 @@
             }
         });
         messenger.send('from iframe.');
+        loadMessenger && loadMessenger.call(parent);
     });
     </script>
 
