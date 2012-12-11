@@ -15,6 +15,7 @@ define(function(require) {
         afterEach(function() {
             messenger = null;
             node && node.remove();
+            node = null;
         });
 
         it(' 子页面传给父页面', function(done) {
