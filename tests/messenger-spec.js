@@ -4,18 +4,12 @@ define(function(require) {
         $ = require('$'),
         messenger,
         message,
+        delay = 80,
         node;
 
     describe('Messenger', function() {
 
-
         beforeEach(function() {
-            messenger = new Messenger({
-                target: '#iframe',
-                onmessage: function(data) {
-                    message = data;
-                }
-            });
         });
 
         afterEach(function() {
@@ -23,34 +17,49 @@ define(function(require) {
             node && node.remove();
         });
 
-        it(' 子页面传给父页面', function() {
+        it(' 子页面传给父页面', function(done) {
             createIframe(function() {
-                expect(message).toBe('from iframe.');
+                setTimeout(function() {
+                    expect(message).to.be('from iframe.');
+                    done();
+                }, delay);
             });
         });
 
-        it(' 父页面传给子页面', function() {
+        it(' 父页面传给子页面', function(done) {
             createIframe(function() {
                 messenger.send('from parent.');
-                expect(window.parentMessage).toBe('from parent.');
+                setTimeout(function() {
+                    expect(seajs.parentMessage).to.be('from parent.');
+                    done();
+                }, delay);
             });
         });
 
-        it('传递object对象', function() {
+        it('传递object对象', function(done) {
             createIframe(function() {
                 messenger.send({test: 'test-text'});
-                expect(window.parentMessage.test).toBe('test-text');
+                setTimeout(function() {                
+                    expect(seajs.parentMessage.test).to.be('test-text');
+                    done();
+                }, delay);
             });
         });
 
     });
 
     function createIframe(callback) {
-        node = $('<iframe id="iframe" src="test-iframe.html">');
+        node = $('<iframe id="iframe" src="test-iframe.html"></iframe>');
         node.on('load', function() {
             callback();
         });
         node.appendTo(document.body);
+        messenger = new Messenger({
+            target: '#iframe',
+            onmessage: function(data) {
+                message = data;
+            }
+        });
     }
 
 });

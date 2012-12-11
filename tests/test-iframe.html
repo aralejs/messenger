@@ -13,7 +13,7 @@
         var messenger = new Messenger({
             target: parent,
             onmessage: function(data) {
-                parent.window.parentMessage = data;
+                parent.seajs.parentMessage = data;
             }
         });
         messenger.send('from iframe.');
