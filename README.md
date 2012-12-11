@@ -22,7 +22,7 @@
 
 ### send `function`
 
-使用 send 方法来给目标页面发送信息，接受一个 string 或 纯object 参数。
+使用 send 方法来给目标页面发送信息，接受一个 string 或 纯 object 参数（IE 8/9 不支持）。
 
 ```js
 messenger.send('The Message.');
