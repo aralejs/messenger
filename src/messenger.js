@@ -91,9 +91,11 @@ define(function(require, exports, module) {
             var fragment = document.createDocumentFragment();
             var style = 'width: 1px; height: 1px; position: absolute; left: -999px; top: -999px;';
             var senderFrame = document.createElement('iframe');
+            senderFrame.src = 'javascript:""';
             senderFrame.style.cssText = style;
             fragment.appendChild(senderFrame);
             var receiverFrame = document.createElement('iframe');
+            receiverFrame.src = 'javascript:""';            
             receiverFrame.style.cssText = style;
             fragment.appendChild(receiverFrame);
 

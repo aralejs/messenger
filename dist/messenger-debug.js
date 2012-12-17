@@ -1,4 +1,4 @@
-define("arale/messenger/1.0.0/messenger-debug", ["$-debug"], function(require, exports, module) {
+define("arale/messenger/1.0.1/messenger-debug", ["$-debug"], function(require, exports, module) {
 
     var $ = require('$-debug');
 
@@ -91,9 +91,11 @@ define("arale/messenger/1.0.0/messenger-debug", ["$-debug"], function(require, e
             var fragment = document.createDocumentFragment();
             var style = 'width: 1px; height: 1px; position: absolute; left: -999px; top: -999px;';
             var senderFrame = document.createElement('iframe');
+            senderFrame.src = 'javascript:""';
             senderFrame.style.cssText = style;
             fragment.appendChild(senderFrame);
             var receiverFrame = document.createElement('iframe');
+            receiverFrame.src = 'javascript:""';            
             receiverFrame.style.cssText = style;
             fragment.appendChild(receiverFrame);
 
