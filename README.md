@@ -6,6 +6,8 @@
 
 跨域 Iframe 通信解决方案，兼容主流和 IE 系列浏览器。
 
+<span style="font-size:80px;line-height:1;color:rgb(116, 106, 76);">⥮</span>
+
 ---
 
 ## API
