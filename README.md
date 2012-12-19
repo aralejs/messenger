@@ -6,7 +6,7 @@
 
 跨域 Iframe 通信解决方案，兼容主流和 IE 系列浏览器。
 
-<span style="font-size:80px;line-height:1;color:rgb(116, 106, 76);">⥮</span>
+<span style="font-size:100px;line-height:0.7;color:rgb(116, 106, 76);">☏</span>
 
 ---
 
