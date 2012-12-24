@@ -22,7 +22,7 @@
 
 ````js
 seajs.use(['messenger', '$'], function(Messenger, $) {
-    var messenger = new Messenger({
+    window.messenger = new Messenger({
         target: '#iframe',
         onmessage: function(data) {
             output.html(output.html() + ' ' + data);
@@ -61,4 +61,18 @@ seajs.use(['messenger', '$'], function(Messenger, $) {
     });
 });
 ```
+
+## 销毁
+
+<button id="destroy">点我销毁信使</button>
+
+````js
+seajs.use('$', function($) {
+    $('#destroy').click(function() {
+        messenger && messenger.destroy();
+
+        $('#destroy').html('已销毁信使');
+    });
+});
+````
 

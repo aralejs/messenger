@@ -23,16 +23,17 @@ define(function(require, exports, module) {
     // postMessage API is supported
     Messenger.prototype.init = function () {
         var self = this;
-        var receiver = function (event) {
+        this._receiver = function (event) {
             // Some IE-component browsers fails if you compare
             // window objects with '===' or '!=='.
             if (event.source != self.win) return;
             (self.onmessage || function () {}).call(self, event.data);
         };
+        
         if (window.addEventListener)
-            window.addEventListener('message', receiver, false);
+            window.addEventListener('message', this._receiver, false);
         else if (window.attachEvent)
-        window.attachEvent('onmessage', receiver);
+        window.attachEvent('onmessage', this._receiver);
     };
 
     Messenger.prototype.send = function (data) {
@@ -66,13 +67,15 @@ define(function(require, exports, module) {
 
         Messenger.prototype.initForSameOrigin = function () {
             var self = this;
-            document.attachEvent('ondataavailable', function (event) {
+
+            this._dataavailable = function (event) {
                 if (!event.eventType ||
                     event.eventType !== 'message' ||
                     event.eventSource != self.win)
                 return;
                 (self.onmessage || function () {}).call(self, event.eventData);
-            });
+            };
+            document.attachEvent('ondataavailable', this._dataavailable);
         };
 
         Messenger.prototype.sendForSameOrigin = function (data) {
@@ -104,6 +107,9 @@ define(function(require, exports, module) {
             this.receiverWin = receiverFrame.contentWindow;
 
             this.startReceive();
+
+            // for destroy
+            this._fragment = fragment;
         };
 
         // parent page wait the messenger iframe is ready
@@ -152,7 +158,7 @@ define(function(require, exports, module) {
             } catch (ex) {}
 
             // if the name property can not be accessed, try to change the messenger iframe's location to 'about blank'
-            this.receiverWin.location.replace('about:blank');
+            this.receiverWin.location.replace('javascript:"";');
             // We have to delay receiving to avoid access-denied error.
             var self = this;
             setTimeout(function () {
@@ -204,6 +210,34 @@ define(function(require, exports, module) {
         };
 
     }
+
+    Messenger.prototype.destroy = function () {
+        // 删除定时器
+        clearInterval(this.timerId);
+        
+        // 解除绑定事件
+        if (this._receiver) {
+            if (window.removeEventListener)
+                window.removeEventListener('message', this._receiver, false);
+            else if (window.detachEvent)
+                window.detachEvent('onmessage', this._receiver);
+        }
+
+        // 解除绑定事件 ie
+        if (document.detachEvent && this._dataavailable) {
+            document.detachEvent('ondataavailable', this._dataavailable);            
+        }
+
+        // 删除fragment
+        this._fragment && document.body.removeChild(this._fragment);
+
+        // 删除实例属性
+        for (var p in this) {
+            if (this.hasOwnProperty(p)) {
+                delete this[p];
+            }
+        }
+    };
 
     module.exports = Messenger;
 
