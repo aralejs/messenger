@@ -40,21 +40,6 @@ define(function(require) {
             });
         });
 
-        it('传递object对象', function(done) {
-            createIframe(function() {
-                messenger.send({test: 'test-text'});
-                setTimeout(function() {
-                    if ($.browser.msie && $.browser.version >= 8) {
-                        // ie 8/9 only support string message
-                        expect(seajs.parentMessage).to.be('[object Object]');                    
-                    } else {
-                        expect(seajs.parentMessage.test).to.be('test-text');
-                    }
-                    done();
-                }, delay);
-            });
-        });
-
     });
 
     function createIframe(callback) {
