@@ -2,7 +2,7 @@
 
 ---
 
-[![Build Status](https://secure.travis-ci.org/aralejs/messenger.png)](https://travis-ci.org/aralejs/messenger)
+[![Build Status](https://travis-ci.org/aralejs/messenger.png?branch=master)](https://travis-ci.org/aralejs/messenger)
 
 跨域 Iframe 通信解决方案，兼容主流和 IE 系列浏览器。
 
