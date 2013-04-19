@@ -1,7 +1,7 @@
 define(function(require) {
 
     var expect = require('expect');
-    var Messenger = require('messenger'),
+    var Messenger = require('../src/messenger'),
         $ = require('$'),
         messenger,
         message,
