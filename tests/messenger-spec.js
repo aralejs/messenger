@@ -9,7 +9,7 @@ define(function(require) {
         node;
 
     mocha.globals('iframe');
-    mocha.suite.timeout(5000);
+    mocha.suite.timeout(8000);
 
     describe('Messenger', function() {
 
