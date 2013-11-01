@@ -158,7 +158,7 @@ define(function(require, exports, module) {
             } catch (ex) {}
 
             // if the name property can not be accessed, try to change the messenger iframe's location to 'about blank'
-            this.receiverWin.location.replace('javascript:"";');
+            this.receiverWin.location.replace('about:blank');
             // We have to delay receiving to avoid access-denied error.
             var self = this;
             setTimeout(function () {
