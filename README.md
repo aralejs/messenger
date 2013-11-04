@@ -63,3 +63,7 @@ messenger.send('发给父页面的消息');
 ## 感谢
 
 本组件源码来自 [https://github.com/biqing/MessengerJS](https://github.com/biqing/MessengerJS) 。
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aralejs/messenger/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
