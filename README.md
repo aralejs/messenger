@@ -6,64 +6,43 @@
 
 跨域 Iframe 通信解决方案，兼容主流和 IE 系列浏览器。
 
+本文档参考 https://github.com/biqing/MessengerJS/blob/master/README.md
+
 <span style="font-size:100px;line-height:0.7;color:rgb(116, 106, 76);">☏</span>
 
 ---
 
-## API
-
-### target `selector`
-
-收发信息的目标页面。
-
-### onmessage `function`
-
-接受消息的处理函数，第一个参数为收到的信息。
-
-## 方法
-
-### send `function`
-
-使用 send 方法来给目标页面发送信息，接受一个字符串作为参数。
-
-```js
-messenger.send('The Message.');
-```
-
-## 最佳实践
+## Usage
 
 ### 父页面
 
 ```js
-// target 参数为 iframe
-var messenger = new Messenger({
-    target: '#iframe',
-    onmessage: function(msg) {
-        console.log(msg);
-    }
-});
+// 初始化父页面的信使
+var messenger = new Messenger('parent', 'MessengerProject');
+
+// 绑定子页面 iframe
+messenger.addTarget(iframe1.contentWindow, 'iframe1');
+messenger.addTarget(iframe2.contentWindow, 'iframe2');
+
 // 给子页面发消息
-messenger.send('发给子页面的消息');
+messenger.targets['iframe1'].send('发给子页面1的消息');
+
+// 或者给所有子页面发消息
+messenger.send('发给所有子页面的消息');
 ```
 
 ### 子页面
 
 ```js
-// target 参数为 parent
-var messenger = new Messenger({
-    target: parent,
-    onmessage: function(msg) {
-        console.log(msg);
-    }
-});
+// 初始化子页面的信使
+// 注意，第二个参数 `MessengerProject` 必须和父页面的信使保持一致，
+var messenger = new Messenger('iframe1', 'MessengerProject');
+
 // 给父页面发消息
-messenger.send('发给父页面的消息');
+messenger.targets['parent'].send('发给父页面的消息');
 ```
 
 ## 感谢
 
 本组件源码来自 [https://github.com/biqing/MessengerJS](https://github.com/biqing/MessengerJS) 。
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aralejs/messenger/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

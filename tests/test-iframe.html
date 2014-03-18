@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>test</title>
-    <script src="https://a.alipayobjects.com/seajs/1.3.1/sea.js"></script>
+    <script src="https://a.alipayobjects.com/seajs/seajs/2.2.0/sea.js"></script>
     <script>
     seajs.config({
       alias: {
@@ -15,14 +15,13 @@
   <body>
     <script>
     seajs.use(['../src/messenger'], function(Messenger) {
-        var messenger = new Messenger({
-            target: parent,
-            onmessage: function(data) {
-                parent.seajs.parentMessage = data;
-            }
+        var messenger = new Messenger('iframe1', 'tests');
+        messenger.addTarget(window.parent, 'parent');
+        messenger.listen(function(msg) {
+            parent.seajs.parentMessage = msg;
         });
         messenger.send('from iframe.');
-        loadMessenger && loadMessenger.call(parent);
+        parent.window.loaded.call(parent);
     });
     </script>
 
