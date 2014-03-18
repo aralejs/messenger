@@ -6,8 +6,6 @@
 
 跨域 Iframe 通信解决方案，兼容主流和 IE 系列浏览器。
 
-本文档参考 https://github.com/biqing/MessengerJS/blob/master/README.md
-
 <span style="font-size:100px;line-height:0.7;color:rgb(116, 106, 76);">☏</span>
 
 ---
@@ -46,3 +44,4 @@ messenger.targets['parent'].send('发给父页面的消息');
 
 本组件源码来自 [https://github.com/biqing/MessengerJS](https://github.com/biqing/MessengerJS) 。
 
+文档亦可参考 [biqing/MessengerJS](https://github.com/biqing/MessengerJS/blob/master/README.md) 。

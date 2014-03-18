@@ -49,6 +49,8 @@ seajs.use(['messenger', '$'], function(Messenger, $) {
     });
 });
 </script>
+
+<style>body{background:#DAF5FF}</style>
 ````
 
 ## 父页面这么写
