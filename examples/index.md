@@ -45,6 +45,7 @@ seajs.use(['messenger', '$'], function(Messenger, $) {
 
     // 监听消息
     messenger.listen(function(msg) {
+        console.log('收到', msg);
         output.html(output.html() + ' ' + msg);
     });
 });
@@ -57,7 +58,7 @@ seajs.use(['messenger', '$'], function(Messenger, $) {
 
 ````js
 seajs.use(['messenger', '$'], function(Messenger, $) {
-    var messenger = new Messenger('parent', 'tests');
+    var messenger = new Messenger('parent', 'demo');
     messenger.addTarget($('iframe')[0].contentWindow, 'iframe1');
 
     // 通过点击按钮发送消息
@@ -65,6 +66,7 @@ seajs.use(['messenger', '$'], function(Messenger, $) {
     var message = $('#message');
     var output = $('#output');
     send.click(function() {
+        console.log('发出', message.val());
         messenger.targets['iframe1'].send(message.val());
         message.val('');
     });
