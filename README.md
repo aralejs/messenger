@@ -44,4 +44,4 @@ messenger.targets['parent'].send('发给父页面的消息');
 
 本组件源码来自 [https://github.com/biqing/MessengerJS](https://github.com/biqing/MessengerJS) 。
 
-文档亦可参考 [biqing/MessengerJS](https://github.com/biqing/MessengerJS/blob/master/README.md) 。
+文档亦可参考 [biqing/MessengerJS](https://github.com/biqing/MessengerJS/) 。
