@@ -14,7 +14,7 @@
   </head>
   <body>
     <script>
-    seajs.use(['../src/messenger'], function(Messenger) {
+    seajs.use(['../index.js'], function(Messenger) {
         var messenger = new Messenger('iframe1', 'tests');
         messenger.addTarget(window.parent, 'parent');
         messenger.listen(function(msg) {

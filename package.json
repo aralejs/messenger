@@ -1,7 +1,6 @@
 {
-    "family": "arale",
-    "name": "messenger",
-    "version": "2.0.0",
+    "name": "arale-messenger",
+    "version": "2.1.0",
     "keywords": ["utility", "message", "communicate"],
     "description": "跨域 Iframe 通信解决方案，兼容 IE 系列浏览器。",
     "homepage": "http://aralejs.org/messenger/",
@@ -16,10 +15,12 @@
     "bugs": {
         "url": "https://github.com/aralejs/messenger/issues"
     },
-    "license": "",
+    "license": "MIT",
     "spm": {
-        "alias": {
+        "devDependencies": {
+            "jquery": "1.7.2",
+            "expect.js": "0.3.1"
         },
-        "output": ["messenger.js"]
+        "main": "index.js"
     }
 }
