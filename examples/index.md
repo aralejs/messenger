@@ -29,25 +29,26 @@
 <pre id="output">来自父页面的消息:</pre>
 
 <script>
-seajs.use(['messenger', '$'], function(Messenger, $) {
-    var messenger = new Messenger('iframe1', 'demo');
-    messenger.addTarget(window.parent, 'parent');
+var Messenger = window['arale-messenger'];
+var $ = window['jquery'];
 
-    // 通过点击按钮发送消息
-    var send = $('#send');
-    var message = $('#message');
-    var output = $('#output');
-    send.click(function() {
-        messenger.targets['parent'].send(message.val());
-        //messenger.send();  // 这样会发给所有 targets
-        message.val('');
-    });
+var messenger = new Messenger('iframe1', 'demo');
+messenger.addTarget(window.parent, 'parent');
 
-    // 监听消息
-    messenger.listen(function(msg) {
-        console.log('收到', msg);
-        output.html(output.html() + ' ' + msg);
-    });
+// 通过点击按钮发送消息
+var send = $('#send');
+var message = $('#message');
+var output = $('#output');
+send.click(function() {
+    messenger.targets['parent'].send(message.val());
+    //messenger.send();  // 这样会发给所有 targets
+    message.val('');
+});
+
+// 监听消息
+messenger.listen(function(msg) {
+    console.log('收到', msg);
+    output.html(output.html() + ' ' + msg);
 });
 </script>
 
@@ -56,24 +57,25 @@ seajs.use(['messenger', '$'], function(Messenger, $) {
 
 ## 父页面这么写
 
-````js
-seajs.use(['messenger', '$'], function(Messenger, $) {
-    var messenger = new Messenger('parent', 'demo');
-    messenger.addTarget($('iframe')[0].contentWindow, 'iframe1');
+````javascript
+var Messenger = require('arale-messenger');
+var $ = require('jquery');
 
-    // 通过点击按钮发送消息
-    var send = $('#send');
-    var message = $('#message');
-    var output = $('#output');
-    send.click(function() {
-        console.log('发出', message.val());
-        messenger.targets['iframe1'].send(message.val());
-        message.val('');
-    });
+var messenger = new Messenger('parent', 'demo');
+messenger.addTarget($('iframe')[0].contentWindow, 'iframe1');
 
-    // 监听消息
-    messenger.listen(function(msg) {
-        output.html(output.html() + ' ' + msg);
-    });
+// 通过点击按钮发送消息
+var send = $('#send');
+var message = $('#message');
+var output = $('#output');
+send.click(function() {
+    console.log('发出', message.val());
+    messenger.targets['iframe1'].send(message.val());
+    message.val('');
+});
+
+// 监听消息
+messenger.listen(function(msg) {
+    output.html(output.html() + ' ' + msg);
 });
 ````

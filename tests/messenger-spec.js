@@ -39,7 +39,7 @@ describe('Messenger', function() {
 });
 
 function createIframe(callback) {
-    node = $('<iframe id="iframe" src="tests/test-iframe.html"></iframe>');
+    node = $('<iframe id="iframe" src="test-iframe.html"></iframe>');
     node.appendTo(document.body);
     window.loaded = callback;
     messenger = new Messenger('parent', 'tests');
