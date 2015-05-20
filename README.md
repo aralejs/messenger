@@ -36,6 +36,9 @@ messenger.send('发给所有子页面的消息');
 // 注意，第二个参数 `MessengerProject` 必须和父页面的信使保持一致，
 var messenger = new Messenger('iframe1', 'MessengerProject');
 
+// 绑定父页面
+messenger.addTarget(window.parent, 'parent');
+
 // 给父页面发消息
 messenger.targets['parent'].send('发给父页面的消息');
 ```
